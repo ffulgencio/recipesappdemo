@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getCategories } from "../services/recipes.services";
-import { View, Text, Image, StyleSheet, FlatList } from "react-native";
+import { View, Text, Image, StyleSheet, FlatList} from "react-native";
 
 function Home() {
   const [categories, setCategories] = useState([]);
