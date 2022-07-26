@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { getCategories } from "../services/recipes.services";
-import { View, Text, Image, StyleSheet, FlatList} from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 
-function Home() {
+import CategoryCard from "./CategoryCard";
+
+function Home(props) {
   const [categories, setCategories] = useState([]);
+
   useEffect(() => {
     getCategories().then((data) => setCategories([...data.categories]));
   }, []);
@@ -15,14 +25,7 @@ function Home() {
         data={categories}
         numColumns={2}
         renderItem={({ item }, i) => (
-          <View style={styles.container}>
-            <Image
-              resizeMode="cover"
-              style={styles.thumb}
-              source={{ uri: item.strCategoryThumb }}
-            />
-            <Text style={styles.title}>{item.strCategory}</Text>
-          </View>
+         <CategoryCard item={item} i={i} {...props} />
         )}
         keyExtractor={(item, index) => index.toString()}
       />
@@ -30,26 +33,6 @@ function Home() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-     backgroundColor: "#FFF",
-    margin: 10,
-    borderRadius: 10,
-    padding: 10,
-    elevation:2
-  },
-  thumb: {
-    width: "100%",
-    height: 100,
-    marginVertical: 5,
-    marginHorizontal: 5,
-    borderRadius: 10,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-});
+
 
 export default Home;
